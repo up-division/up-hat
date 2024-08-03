@@ -1,0 +1,7 @@
+# rules to permit access to pwm peripheral from userspace
+SUBSYSTEM=="pwm", ACTION=="add|change", \
+        RUN+="/bin/chgrp -R gpio '/sys%p'", \
+	RUN+="/bin/sh -c 'echo 0 > /sys%p/export'", \
+	RUN+="/bin/sh -c 'echo 1 > /sys%p/export'", \
+	RUN+="/bin/chmod -R g=u '/sys%p'"
+	
